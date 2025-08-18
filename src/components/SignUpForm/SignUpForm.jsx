@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
+
 import { signUp } from '../../services/authServices';
 
+import { UserContext } from '../../contexts/UserContext';
+
 const SignUpForm = () => {
+
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
@@ -22,7 +27,11 @@ const SignUpForm = () => {
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      console.log(newUser);
+      // Call the setUser function to update the user state, just like normal.
+      setUser(newUser);
+      // Take the user to the (non-existent) home page after they sign up.
+      // We'll get to this shortly!
+      navigate('/');
     } catch (err) {
       setMessage(err.message);
     }
