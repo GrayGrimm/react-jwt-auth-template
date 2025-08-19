@@ -14,12 +14,13 @@ const getUserFromToken = () => {
   return JSON.parse(atob(token.split('.')[1])).payload;
 };
 
-function UserProvider({ children }) {
+const UserProvider = ({ children }) => {
   // call getUserFromToken() to get our initial user state
+
   const [user, setUser] = useState(getUserFromToken());
 
   const value = { user, setUser };
-
+console.log(user)
   return (
     <UserContext.Provider value={value}>
       {children}
