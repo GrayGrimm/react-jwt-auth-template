@@ -1,8 +1,9 @@
 
+// src/contexts/UserContext.jsx
+
 import { createContext, useState } from 'react';
 
 const UserContext = createContext();
-
 
 const getUserFromToken = () => {
   const token = localStorage.getItem('token');
@@ -12,13 +13,14 @@ const getUserFromToken = () => {
   return JSON.parse(atob(token.split('.')[1])).payload;
 };
 
-
 const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  // call getUserFromToken() to get our initial user state
 
-    const value = { user, setUser };
+  const [user, setUser] = useState(getUserFromToken());
 
-     return (
+  const value = { user, setUser };
+console.log(user)
+  return (
     <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
@@ -26,4 +28,3 @@ const UserProvider = ({ children }) => {
 };
 
 export { UserProvider, UserContext };
-
