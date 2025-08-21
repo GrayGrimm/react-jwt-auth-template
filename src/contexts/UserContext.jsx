@@ -20,7 +20,6 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(getUserFromToken());
 
   const value = { user, setUser };
-console.log(user)
   return (
     <UserContext.Provider value={value}>
       {children}
